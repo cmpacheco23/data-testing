@@ -14,11 +14,12 @@ async function index(req, res){
 async function apiBookSearch(req, res) {
   
   try {
-    let massagedBookData = []
-    const bookResponse = await fetch(`https://www.googleapis.com/books/v1/volumes?q=dune`)
+    let massagedBookData =  {}
+    const bookResponse = await fetch(`https://www.googleapis.com/books/v1/volumes?q=harrypotter`)
     const bookData = bookResponse.json()
-    bookData.forEach(book => {
-      book.subjects = book.subjects.map(obj => obj.name)
+    const bookInfo = bookData.items
+    bookInfo.forEach(book => {
+      book.items = book.items.map(obj => obj.id)
       massagedBookData.push(book)
     })
     // massaging goes here
